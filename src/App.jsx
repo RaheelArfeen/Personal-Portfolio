@@ -1,5 +1,4 @@
-import './App.css'
-import Index from './Pages/Index'
+import Index from './Pages/Home'
 import {
   createBrowserRouter,
   RouterProvider,
@@ -18,7 +17,7 @@ function App() {
 
   return (
     <>
-      <RouterProvider router={router} />
+        <RouterProvider router={router} />
     </>
   )
 }

@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 const Hero = () => {
     const [displayText, setDisplayText] = useState("");
     const [currentIndex, setCurrentIndex] = useState(0);
-    const fullText = "Grade 8 Fullstack Developer";
+    const fullText = "Fullstack Developer from Grade 7";
 
     useEffect(() => {
         if (currentIndex < fullText.length) {
