@@ -19,7 +19,7 @@ const Hero = () => {
     }, [currentIndex, fullText]);
 
     return (
-        <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden">
+        <section id="home" className="py-20 lg:py-40 flex items-center justify-center relative overflow-hidden">
             {/* Animated background */}
             <div className="absolute inset-0 opacity-20">
                 <motion.div
@@ -65,12 +65,12 @@ const Hero = () => {
                 />
             </div>
 
-            <div className="container mx-auto px-4 relative z-10">
-                <div className="max-w-7xl mx-auto">
+            <div className="container mx-auto relative z-10">
+                <div className="max-w-7xl mx-auto 2xl:px-0 px-8">
                     {/* Horizontal Layout */}
-                    <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                    <div className="flex items-center lg:flex-row flex-col-reverse justify-between gap-12 lg:gap-16">
                         {/* Left Side - Content */}
-                        <div className="text-center lg:text-left order-2 lg:order-1">
+                        <div className="text-center lg:text-left">
                             <motion.h1
                                 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent"
                                 initial={{ opacity: 0, x: -50 }}
