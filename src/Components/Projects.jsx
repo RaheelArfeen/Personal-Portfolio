@@ -15,7 +15,7 @@ const Projects = () => {
         {
             title: "Quiz-Website",
             description: "A full-stack task management application with user authentication and real-time updates.",
-            tech: ["React", "Node.js", "MongoDB"],
+            tech: ["HTML5", "CSS3", "JavaScript"],
             image: "https://i.ibb.co/Qv2jCQ2C/image.png",
             github: "https://github.com/RaheelArfeen/Quiz-website",
             live: "https://raheelarfeen.github.io/Quiz-website",
