@@ -89,7 +89,7 @@ const Hero = () => {
                                 <span className="text-gray-300">
                                     {displayText}
                                     <motion.span
-                                        className="animate-pulse"
+                                        className="animate-pulse relative bottom-0.5 left-0.5"
                                         animate={{ opacity: [0, 1, 0] }}
                                         transition={{ duration: 1, repeat: Infinity }}
                                     >
