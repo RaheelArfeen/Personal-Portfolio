@@ -6,7 +6,7 @@ import RaheelArfeen from '../assets/RaheelArfeen.png'
 const Hero = () => {
     const [displayText, setDisplayText] = useState("");
     const [currentIndex, setCurrentIndex] = useState(0);
-    const fullText = "Fullstack Developer from Grade 7";
+    const fullText = "Fullstack Developer from Grade 8";
 
     useEffect(() => {
         if (currentIndex < fullText.length) {
