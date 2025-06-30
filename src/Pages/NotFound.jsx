@@ -14,6 +14,15 @@ const NotFound = () => {
         );
     }, [location.pathname]);
 
+    const quotes = [
+        "Not all those who wander are lost.",
+        "The page you're looking for took a day off!",
+        "404: Reality not found.",
+        "Oops! You seem to have discovered a secret void.",
+        "Broken links build character."
+    ];
+    const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+
     return (
         <motion.div
             className="min-h-screen bg-[#101728] text-white flex flex-col items-center justify-center px-4"
@@ -31,7 +40,7 @@ const NotFound = () => {
             </motion.h1>
 
             <motion.p
-                className="text-xl text-gray-400 mb-6 text-center max-w-lg"
+                className="text-xl text-gray-400 mb-2 text-center max-w-lg"
                 initial={{ y: -20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.4, duration: 0.6 }}
@@ -39,10 +48,19 @@ const NotFound = () => {
                 Oops! The page you're looking for doesn't exist or has been moved.
             </motion.p>
 
+            <motion.p
+                className="text-sm italic text-gray-500 mb-6 text-center"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.6, duration: 0.5 }}
+            >
+                {randomQuote}
+            </motion.p>
+
             <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                transition={{ delay: 0.6, duration: 0.4 }}
+                transition={{ delay: 0.8, duration: 0.4 }}
             >
                 <Link
                     to="/"
