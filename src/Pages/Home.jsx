@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import Header from "../Components/Header";
 import Hero from "../Components/Hero";
 import About from "../Components/About";
@@ -9,14 +8,6 @@ import Contact from "../Components/Contact";
 import Footer from "../Components/Footer";
 
 const Home = () => {
-
-    const [mounted, setMounted] = useState(false);
-
-    useEffect(() => {
-        setMounted(true);
-    }, []);
-
-    if (!mounted) return null;
 
     return (
         <div className="min-h-screen bg-gray-900 text-white w-full">

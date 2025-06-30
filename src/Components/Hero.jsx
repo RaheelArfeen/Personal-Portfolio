@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 import { motion } from "framer-motion";
-import RaheelArfeen from '../assets/RaheelArfeen.png'
+import RaheelArfeen from '../assets/RaheelArfeen.png';
 
 const Hero = () => {
     const [displayText, setDisplayText] = useState("");
     const [currentIndex, setCurrentIndex] = useState(0);
     const fullText = "Fullstack Developer from Grade 8";
 
+    // Typewriter effect for displayText
     useEffect(() => {
         if (currentIndex < fullText.length) {
             const timeout = setTimeout(() => {
@@ -17,6 +18,14 @@ const Hero = () => {
             return () => clearTimeout(timeout);
         }
     }, [currentIndex, fullText]);
+
+    // Smooth scroll helper
+    const handleScrollTo = (id) => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+    };
 
     return (
         <section id="home" className="py-20 lg:py-40 flex items-center justify-center relative overflow-hidden">
@@ -67,7 +76,6 @@ const Hero = () => {
 
             <div className="container mx-auto relative z-10">
                 <div className="max-w-7xl mx-auto 2xl:px-0 px-8">
-                    {/* Horizontal Layout */}
                     <div className="flex items-center lg:flex-row flex-col-reverse justify-between gap-12 lg:gap-16">
                         {/* Left Side - Content */}
                         <div className="text-center lg:text-left">
@@ -114,8 +122,8 @@ const Hero = () => {
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ duration: 0.8, delay: 1 }}
                             >
-                                <motion.a
-                                    href="#projects"
+                                <motion.button
+                                    onClick={() => handleScrollTo("projects")}
                                     className="px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full text-white font-semibold shadow-lg hover:shadow-blue-500/25"
                                     whileHover={{
                                         scale: 1.05,
@@ -125,9 +133,10 @@ const Hero = () => {
                                     transition={{ type: "spring", stiffness: 400, damping: 10 }}
                                 >
                                     View My Projects
-                                </motion.a>
-                                <motion.a
-                                    href="#contact"
+                                </motion.button>
+
+                                <motion.button
+                                    onClick={() => handleScrollTo("contact")}
                                     className="px-8 py-3 border-2 border-blue-400 rounded-full text-blue-400 font-semibold hover:bg-blue-400 hover:text-white transition-all duration-300"
                                     whileHover={{
                                         scale: 1.05,
@@ -138,7 +147,7 @@ const Hero = () => {
                                     transition={{ type: "spring", stiffness: 400, damping: 10 }}
                                 >
                                     Get In Touch
-                                </motion.a>
+                                </motion.button>
                             </motion.div>
                         </div>
 
@@ -161,7 +170,6 @@ const Hero = () => {
                                     whileHover={{ scale: 1.05 }}
                                     transition={{ type: "spring", stiffness: 300, damping: 30 }}
                                 >
-                                    {/* Profile image */}
                                     <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96">
                                         <img
                                             src={RaheelArfeen}
