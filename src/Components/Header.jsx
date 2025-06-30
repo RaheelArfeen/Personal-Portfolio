@@ -1,24 +1,75 @@
-import { useState } from "react";
-import { Github, Linkedin, Mail, Menu, X } from "lucide-react";
+import { useEffect, useState, useRef } from "react";
+import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Logo from "./Shared/Logo";
 
 const Header = () => {
     const [drawerOpen, setDrawerOpen] = useState(false);
-
+    const [activeSection, setActiveSection] = useState("home");
     const navLinks = [
-        { label: "Home", href: "#" },
-        { label: "About", href: "#about" },
-        { label: "Skills", href: "#skills" },
-        { label: "Projects", href: "#projects" },
-        { label: "Timeline", href: "#timeline" },
-        { label: "Contact", href: "#contact" },
+        { label: "Home", to: "home" },
+        { label: "About", to: "about" },
+        { label: "Skills", to: "skills" },
+        { label: "Projects", to: "projects" },
+        { label: "Timeline", to: "timeline" },
+        { label: "Contact", to: "contact" },
     ];
+
+    const navRefs = useRef([]);
+
+    const [underlineStyle, setUnderlineStyle] = useState({ left: 0, width: 0 });
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const scrollPosition = window.scrollY + 100;
+            let currentSection = activeSection;
+
+            for (const link of navLinks) {
+                const section = document.getElementById(link.to);
+                if (section) {
+                    const top = section.offsetTop;
+                    const height = section.offsetHeight;
+                    if (scrollPosition >= top && scrollPosition < top + height) {
+                        currentSection = link.to;
+                        break;
+                    }
+                }
+            }
+
+            if (currentSection !== activeSection) {
+                setActiveSection(currentSection);
+            }
+        };
+
+        window.addEventListener("scroll", handleScroll, { passive: true });
+        handleScroll();
+
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, [activeSection, navLinks]);
+
+    useEffect(() => {
+        const index = navLinks.findIndex((link) => link.to === activeSection);
+        const node = navRefs.current[index];
+        if (node) {
+            setUnderlineStyle({
+                left: node.offsetLeft,
+                width: node.offsetWidth,
+            });
+        }
+    }, [activeSection, navLinks]);
+
+    const handleScrollTo = (id) => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.scrollIntoView({ behavior: "smooth", block: "start" });
+            setDrawerOpen(false);
+        }
+    };
 
     return (
         <>
             <motion.nav
-                className="sticky top-0 inset-0 z-50 bg-gray-900/90 backdrop-blur-sm border-b border-gray-800"
+                className="sticky top-0 z-50 bg-gray-900/90 backdrop-blur-sm border-b border-gray-800"
                 initial={{ y: -100 }}
                 animate={{ y: 0 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
@@ -26,34 +77,46 @@ const Header = () => {
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center h-16">
                         {/* Logo */}
-                        <a href="#">
-                            <div className="flex items-center space-x-3">
-                                <Logo />
-                            </div>
-                        </a>
+                        <div
+                            className="flex items-center space-x-3 cursor-pointer"
+                            onClick={() => handleScrollTo("home")}
+                        >
+                            <Logo />
+                        </div>
 
-                        {/* Desktop Nav + Social Links */}
-                        <div className="hidden sm:flex items-center space-x-6">
-                            {navLinks.map((link) => (
-                                <a
+                        {/* Desktop Nav */}
+                        <div className="relative hidden sm:flex items-center space-x-6">
+                            {navLinks.map((link, idx) => (
+                                <button
                                     key={link.label}
-                                    href={link.href}
-                                    className="text-gray-400 hover:text-blue-400 transition-colors duration-300 text-sm font-medium"
+                                    ref={(el) => (navRefs.current[idx] = el)}
+                                    onClick={() => handleScrollTo(link.to)}
+                                    className="text-gray-400 hover:text-blue-400 text-sm font-medium pb-1 cursor-pointer bg-transparent border-none"
+                                    style={{ outline: "none" }}
                                 >
                                     {link.label}
-                                </a>
+                                </button>
                             ))}
 
+                            {/* Sliding underline */}
+                            <motion.div
+                                layout
+                                transition={{ type: "spring", stiffness: 800, damping: 30 }}
+                                className="absolute bottom-0 h-0.5 bg-blue-400 rounded"
+                                style={{
+                                    left: underlineStyle.left,
+                                    width: underlineStyle.width,
+                                }}
+                            />
                             <motion.a
                                 href="/resume.pdf"
                                 download
-                                className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-medium border border-blue-500 text-blue-400 hover:bg-blue-500/20 transition-colors duration-300"
+                                className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-medium border border-blue-500 text-blue-400 hover:bg-blue-500/20 transition-colors duration-300 ml-6"
                                 initial={{ opacity: 0, scale: 0.8 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ duration: 0.5 }}
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
-                                title="Download Resume"
                             >
                                 Download Resume
                             </motion.a>
@@ -63,7 +126,6 @@ const Header = () => {
                         <button
                             className="sm:hidden p-2 rounded-md text-gray-400 hover:text-blue-400 hover:bg-gray-800 transition-colors duration-300"
                             onClick={() => setDrawerOpen(true)}
-                            aria-label="Open menu"
                         >
                             <Menu size={24} />
                         </button>
@@ -94,26 +156,25 @@ const Header = () => {
                             exit={{ x: "100%" }}
                             transition={{ type: "spring", stiffness: 300, damping: 30 }}
                         >
-                            {/* Close Button */}
                             <button
                                 onClick={() => setDrawerOpen(false)}
                                 className="self-end p-2 rounded-md text-gray-400 hover:text-blue-400 hover:bg-gray-800 transition-colors duration-300"
-                                aria-label="Close menu"
                             >
                                 <X size={24} />
                             </button>
 
-                            {/* Nav Links */}
                             <nav className="mt-8 flex flex-col space-y-4">
                                 {navLinks.map((link) => (
-                                    <a
+                                    <button
                                         key={link.label}
-                                        href={link.href}
-                                        className="text-gray-400 hover:text-blue-400 transition-colors duration-300 text-lg font-medium"
-                                        onClick={() => setDrawerOpen(false)}
+                                        onClick={() => handleScrollTo(link.to)}
+                                        className={`text-left text-lg font-medium pb-1 transition-colors duration-300 cursor-pointer ${activeSection === link.to
+                                            ? "text-blue-400 border-b border-blue-400"
+                                            : "text-gray-400 hover:text-blue-400"
+                                            }`}
                                     >
                                         {link.label}
-                                    </a>
+                                    </button>
                                 ))}
 
                                 <a

@@ -1,4 +1,4 @@
-import Index from './Pages/Home'
+import Home from './Pages/Home'
 import {
   createBrowserRouter,
   RouterProvider,
@@ -10,7 +10,7 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Index></Index>,
+      element: <Home></Home>,
       errorElement: <NotFound></NotFound>
     },
   ]);
