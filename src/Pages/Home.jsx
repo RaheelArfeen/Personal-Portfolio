@@ -10,7 +10,7 @@ import Footer from "../Components/Footer";
 const Home = () => {
 
     return (
-        <div class="bg-gray-100 text-black dark:bg-gray-900 dark:text-white">
+        <div className="min-h-screen bg-gray-900 text-white w-full">
             <Header />
 
             <section id="home">
