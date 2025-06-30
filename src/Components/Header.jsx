@@ -69,7 +69,7 @@ const Header = () => {
     return (
         <>
             <motion.nav
-                className="sticky top-0 z-50 bg-gray-900/90 backdrop-blur-sm border-b border-gray-800"
+                className="sticky top-0 z-40 bg-gray-900/90 backdrop-blur-sm border-b border-gray-800"
                 initial={{ y: -100 }}
                 animate={{ y: 0 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}

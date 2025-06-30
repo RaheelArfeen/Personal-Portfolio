@@ -4,6 +4,8 @@ import {
   RouterProvider,
 } from "react-router";
 import NotFound from './Pages/NotFound';
+import BackToTop from './Components/Shared/BackToTop';
+import SocialSidebar from './Components/Shared/SocialSlider';
 
 function App() {
 
@@ -17,7 +19,9 @@ function App() {
 
   return (
     <>
-        <RouterProvider router={router} />
+      <RouterProvider router={router} />
+      <BackToTop />
+      <SocialSidebar />
     </>
   )
 }
