@@ -6,10 +6,13 @@ import Logo from "./Shared/Logo";
 const Header = () => {
     const [drawerOpen, setDrawerOpen] = useState(false);
 
-    const socialLinks = [
-        { icon: Github, href: "https://github.com/RaheelArfeen", label: "GitHub", target: "_blank" },
-        { icon: Linkedin, href: "https://www.linkedin.com/in/Raheelarfeen/", label: "LinkedIn", target: "_blank" },
-        { icon: Mail, href: "#contact", label: "Email" },
+    const navLinks = [
+        { label: "Home", href: "#" },
+        { label: "About", href: "#about" },
+        { label: "Skills", href: "#skills" },
+        { label: "Projects", href: "#projects" },
+        { label: "Timeline", href: "#timeline" },
+        { label: "Contact", href: "#contact" },
     ];
 
     return (
@@ -22,35 +25,27 @@ const Header = () => {
             >
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center h-16">
-                        {/* Logo and Name */}
+                        {/* Logo */}
                         <a href="#">
                             <div className="flex items-center space-x-3">
                                 <Logo />
                             </div>
                         </a>
 
-                        {/* Desktop Social Links and Resume Button */}
-                        <div className="hidden sm:flex items-center space-x-4">
-                            {socialLinks.map((social, index) => (
-                                <motion.a
-                                    key={social.label}
-                                    href={social.href}
-                                    className="p-2 text-gray-400 hover:text-blue-400 transition-colors duration-300 hover:bg-gray-800 rounded-lg"
-                                    initial={{ opacity: 0, y: -20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: index * 0.1, duration: 0.5 }}
-                                    whileHover={{ scale: 1.1, y: -2 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    title={social.label}
-                                    target={social.target || "_self"}
-                                    rel={social.target === "_blank" ? "noopener noreferrer" : undefined}
+                        {/* Desktop Nav + Social Links */}
+                        <div className="hidden sm:flex items-center space-x-6">
+                            {navLinks.map((link) => (
+                                <a
+                                    key={link.label}
+                                    href={link.href}
+                                    className="text-gray-400 hover:text-blue-400 transition-colors duration-300 text-sm font-medium"
                                 >
-                                    <social.icon size={20} />
-                                </motion.a>
+                                    {link.label}
+                                </a>
                             ))}
 
                             <motion.a
-                                href="/resume.pdf" 
+                                href="/resume.pdf"
                                 download
                                 className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-medium border border-blue-500 text-blue-400 hover:bg-blue-500/20 transition-colors duration-300"
                                 initial={{ opacity: 0, scale: 0.8 }}
@@ -64,7 +59,7 @@ const Header = () => {
                             </motion.a>
                         </div>
 
-                        {/* Mobile Hamburger Button */}
+                        {/* Mobile Menu Button */}
                         <button
                             className="sm:hidden p-2 rounded-md text-gray-400 hover:text-blue-400 hover:bg-gray-800 transition-colors duration-300"
                             onClick={() => setDrawerOpen(true)}
@@ -76,21 +71,21 @@ const Header = () => {
                 </div>
             </motion.nav>
 
-            {/* Drawer for Mobile */}
+            {/* Mobile Drawer */}
             <AnimatePresence>
                 {drawerOpen && (
                     <>
                         {/* Backdrop */}
                         <motion.div
                             key="backdrop"
-                            className="fixed inset-0 bg-black/50 backdrop-blur-sm bg-opacity-50 z-50"
+                            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             onClick={() => setDrawerOpen(false)}
                         />
 
-                        {/* Drawer Panel */}
+                        {/* Drawer */}
                         <motion.aside
                             key="drawer"
                             className="fixed top-0 right-0 h-full w-64 bg-gray-900 shadow-lg z-50 p-6 flex flex-col"
@@ -108,27 +103,23 @@ const Header = () => {
                                 <X size={24} />
                             </button>
 
-                            {/* Social Links */}
-                            <nav className="mt-8 flex flex-col space-y-6">
-                                {socialLinks.map((social) => (
+                            {/* Nav Links */}
+                            <nav className="mt-8 flex flex-col space-y-4">
+                                {navLinks.map((link) => (
                                     <a
-                                        key={social.label}
-                                        href={social.href}
-                                        className="flex items-center space-x-3 text-gray-400 hover:text-blue-400 transition-colors duration-300"
-                                        target={social.target || "_self"}
-                                        rel={social.target === "_blank" ? "noopener noreferrer" : undefined}
+                                        key={link.label}
+                                        href={link.href}
+                                        className="text-gray-400 hover:text-blue-400 transition-colors duration-300 text-lg font-medium"
                                         onClick={() => setDrawerOpen(false)}
                                     >
-                                        <social.icon size={24} />
-                                        <span className="text-lg font-medium">{social.label}</span>
+                                        {link.label}
                                     </a>
                                 ))}
 
-                                {/* Resume Button */}
                                 <a
                                     href="/resume.pdf"
                                     download
-                                    className="mt-auto inline-flex justify-center px-4 py-2 rounded-full text-sm font-medium border border-blue-500 text-blue-400 hover:bg-blue-500/20 transition-colors duration-300"
+                                    className="mt-6 inline-flex justify-center px-4 py-2 rounded-full text-sm font-medium border border-blue-500 text-blue-400 hover:bg-blue-500/20 transition-colors duration-300"
                                     onClick={() => setDrawerOpen(false)}
                                 >
                                     Download Resume
