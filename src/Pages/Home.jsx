@@ -12,33 +12,14 @@ const Home = () => {
     const { isDarkMode } = useTheme();
 
     return (
-        <div
-            className={`min-h-screen w-full transition-colors duration-500 ${isDarkMode
-                ? "bg-gray-900 text-white"
-                : "bg-gray-50 text-gray-900"
-                }`}
-        >
+        <div className={`min-h-screen w-full transition-colors duration-500 ${isDarkMode ? "bg-gray-900 text-white" : "bg-gray-50 text-gray-900"}`}>
             <Header />
-
-            <section id="home">
-                <Hero />
-            </section>
-            <section id="about">
-                <About />
-            </section>
-            <section id="skills">
-                <Skills />
-            </section>
-            <section id="projects">
-                <Projects />
-            </section>
-            <section id="timeline">
-                <Timeline />
-            </section>
-            <section id="contact">
-                <Contact />
-            </section>
-
+            <Hero />
+            <About />
+            <Skills />
+            <Projects />
+            <Timeline />
+            <Contact />
             <Footer />
         </div>
     );
