@@ -25,7 +25,7 @@ const NotFound = () => {
 
     return (
         <motion.div
-            className="min-h-screen bg-[#101728] text-white flex flex-col items-center justify-center px-4"
+            className="min-h-screen bg-[#101728] text-white flex flex-col items-center justify-center px-4 z-50"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6 }}

@@ -1,7 +1,10 @@
 import { Calendar, Trophy, BookOpen, Code2 } from "lucide-react";
 import { motion } from "framer-motion";
+import { useTheme } from "../Context/ThemeContext";
 
 const Timeline = () => {
+    const { isDarkMode } = useTheme();
+
     const timelineEvents = [
         {
             date: "January 2024",
@@ -44,9 +47,7 @@ const Timeline = () => {
         hidden: { opacity: 0 },
         visible: {
             opacity: 1,
-            transition: {
-                staggerChildren: 0.3
-            }
+            transition: { staggerChildren: 0.3 }
         }
     };
 
@@ -55,14 +56,15 @@ const Timeline = () => {
         visible: {
             opacity: 1,
             x: 0,
-            transition: {
-                duration: 0.6
-            }
+            transition: { duration: 0.6 }
         }
     };
 
     return (
-        <section id="timeline" className="py-20">
+        <section
+            id="timeline"
+            className={`py-20 transition-colors duration-300 ${isDarkMode ? "bg-gray-900" : "bg-white"}`}
+        >
             <div className="container mx-auto px-4">
                 <motion.div
                     className="text-center mb-16"
@@ -71,17 +73,17 @@ const Timeline = () => {
                     viewport={{ once: true }}
                     transition={{ duration: 0.8 }}
                 >
-                    <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                    <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
                         My Learning Journey
                     </h2>
                     <motion.div
-                        className="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-500 mx-auto mb-6"
+                        className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto mb-6"
                         initial={{ width: 0 }}
                         whileInView={{ width: 96 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, delay: 0.2 }}
                     />
-                    <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+                    <p className={`text-lg max-w-2xl mx-auto ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
                         Follow my path from complete beginner to aspiring fullstack developer. Every step has been an adventure!
                     </p>
                 </motion.div>
@@ -106,13 +108,13 @@ const Timeline = () => {
                             {timelineEvents.map((event, index) => (
                                 <motion.div
                                     key={index}
-                                    className={`relative flex items-center mb-12 ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
-                                        }`}
+                                    className={`relative flex items-center mb-12 ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}
                                     variants={itemVariants}
                                 >
                                     {/* Timeline dot */}
                                     <motion.div
-                                        className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 w-8 h-8 rounded-full bg-gray-900 border-4 border-blue-500 z-10 flex items-center justify-center"
+                                        className={`absolute left-0 md:left-1/2 transform md:-translate-x-1/2 w-8 h-8 rounded-full z-10 flex items-center justify-center ${isDarkMode ? "bg-gray-900 border-blue-500" : "bg-white border-blue-400"
+                                            } border-4`}
                                         initial={{ scale: 0 }}
                                         whileInView={{ scale: 1 }}
                                         viewport={{ once: true }}
@@ -121,22 +123,18 @@ const Timeline = () => {
                                     >
                                         <motion.div
                                             className={`w-2 h-2 rounded-full bg-gradient-to-r ${event.color}`}
-                                            animate={{
-                                                opacity: [0.5, 1, 0.5],
-                                                scale: [1, 1.2, 1]
-                                            }}
-                                            transition={{
-                                                duration: 2,
-                                                repeat: Infinity,
-                                                delay: index * 0.5
-                                            }}
+                                            animate={{ opacity: [0.5, 1, 0.5], scale: [1, 1.2, 1] }}
+                                            transition={{ duration: 2, repeat: Infinity, delay: index * 0.5 }}
                                         />
                                     </motion.div>
 
-                                    {/* Content */}
+                                    {/* Content card */}
                                     <div className={`ml-16 md:ml-0 md:w-1/2 ${index % 2 === 0 ? 'md:pr-12' : 'md:pl-12'}`}>
                                         <motion.div
-                                            className="bg-gray-800/50 p-6 rounded-xl border border-gray-700 hover:border-blue-500/50 transition-all duration-300 group"
+                                            className={`p-6 rounded-xl border transition-all duration-300 group ${isDarkMode
+                                                    ? "bg-gray-800/50 border-gray-700 hover:border-blue-500/50"
+                                                    : "bg-white border-gray-300 hover:border-blue-400/30"
+                                                }`}
                                             whileHover={{
                                                 scale: 1.02,
                                                 y: -5,
@@ -147,27 +145,26 @@ const Timeline = () => {
                                             <div className="flex items-start space-x-4">
                                                 <motion.div
                                                     className={`p-3 rounded-lg bg-gradient-to-r ${event.color}`}
-                                                    whileHover={{
-                                                        scale: 1.1,
-                                                    }}
+                                                    whileHover={{ scale: 1.1 }}
                                                     transition={{ duration: 0.3 }}
                                                 >
                                                     <event.icon size={24} className="text-white" />
                                                 </motion.div>
                                                 <div className="flex-1">
                                                     <motion.div
-                                                        className="text-sm font-semibold text-blue-400 mb-1"
+                                                        className="text-sm font-semibold text-blue-500 mb-1"
                                                         whileHover={{ scale: 1.05 }}
                                                     >
                                                         {event.date}
                                                     </motion.div>
                                                     <motion.h3
-                                                        className="text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors duration-300"
+                                                        className={`text-xl font-bold mb-2 group-hover:text-blue-500 transition-colors duration-300 ${isDarkMode ? "text-white" : "text-gray-800"
+                                                            }`}
                                                         whileHover={{ x: 5 }}
                                                     >
                                                         {event.title}
                                                     </motion.h3>
-                                                    <p className="text-gray-400 leading-relaxed">
+                                                    <p className={`${isDarkMode ? "text-gray-400" : "text-gray-600"} leading-relaxed`}>
                                                         {event.description}
                                                     </p>
                                                 </div>

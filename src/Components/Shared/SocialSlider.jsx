@@ -9,22 +9,22 @@ const SocialSidebar = () => {
         {
             icon: <Github className="w-5 h-5" />,
             url: "https://github.com/raheelarfeen",
-            bg: "bg-gray-700",
+            bg: "bg-gradient-to-br from-gray-700 to-gray-900",
         },
         {
             icon: <Linkedin className="w-5 h-5" />,
             url: "https://www.linkedin.com/in/raheelarfeen/",
-            bg: "bg-blue-600",
+            bg: "bg-gradient-to-tr from-blue-500 to-indigo-800",
         },
         {
             icon: <Twitter className="w-5 h-5" />,
             url: "https://twitter.com/raheelarfeen",
-            bg: "bg-sky-500",
+            bg: "bg-gradient-to-br from-sky-400 to-blue-700",
         },
         {
             icon: <Facebook className="w-5 h-5" />,
             url: "https://facebook.com/raheelarfeen",
-            bg: "bg-blue-500",
+            bg: "bg-gradient-to-tr from-indigo-500 to-blue-700",
         },
     ];
 

@@ -6,6 +6,7 @@ import {
 import NotFound from './Pages/NotFound';
 import BackToTop from './Components/Shared/BackToTop';
 import SocialSidebar from './Components/Shared/SocialSlider';
+import { ThemeProvider } from './Context/ThemeContext';
 
 function App() {
 
@@ -19,9 +20,11 @@ function App() {
 
   return (
     <>
-      <RouterProvider router={router} />
-      <BackToTop />
-      <SocialSidebar />
+      <ThemeProvider>
+        <RouterProvider router={router} />
+        <BackToTop />
+        <SocialSidebar />
+      </ThemeProvider>
     </>
   )
 }

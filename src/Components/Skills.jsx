@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useTheme } from "../Context/ThemeContext";
 
 const skills = [
     { name: "HTML5", level: 90, colorFrom: "#F97316", colorTo: "#EF4444" },
@@ -19,23 +20,37 @@ const currentlyLearning = [
     "JWT (JSON Web Token)"
 ];
 
-// SVG circle parameters
 const RADIUS = 54;
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 
 const Skills = () => {
+    const { isDarkMode } = useTheme();
+
     return (
-        <section id="skills" className="py-20 bg-gray-900 text-white">
+        <section
+            id="skills"
+            className={`py-20 transition-colors duration-500 ${isDarkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
+                }`}
+        >
             <div className="container mx-auto px-4 text-center">
-                <motion.h2
-                    className="text-5xl font-extrabold mb-12 bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent"
+                <motion.div
+                    className="text-center mb-16"
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.8 }}
                 >
-                    My Skills
-                </motion.h2>
+                    <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                        My Skills
+                    </h2>
+                    <motion.div
+                        className="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-500 mx-auto"
+                        initial={{ width: 0 }}
+                        whileInView={{ width: 96 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: 0.2 }}
+                    />
+                </motion.div>
 
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-12 max-w-5xl mx-auto mb-16">
                     {skills.map(({ name, level, colorFrom, colorTo }, i) => {
@@ -43,7 +58,10 @@ const Skills = () => {
                         return (
                             <motion.div
                                 key={name}
-                                className="group cursor-pointer"
+                                className={`group cursor-pointer rounded-xl p-4 transition-all duration-300 ${isDarkMode
+                                    ? "bg-gray-800 border border-gray-700 hover:border-blue-500/70"
+                                    : "bg-white border border-gray-100 hover:border-blue-400/70 shadow-md"
+                                    }`}
                                 initial={{ opacity: 0, y: 40 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
@@ -56,13 +74,15 @@ const Skills = () => {
                                     fill="none"
                                     xmlns="http://www.w3.org/2000/svg"
                                 >
+                                    {/* Background circle */}
                                     <circle
                                         cx="60"
                                         cy="60"
                                         r={RADIUS}
-                                        stroke="#2d3748"
+                                        stroke={isDarkMode ? "#374151" : "#d1d5db"} // dark gray / light gray
                                         strokeWidth="12"
                                     />
+                                    {/* Progress circle */}
                                     <motion.circle
                                         cx="60"
                                         cy="60"
@@ -89,7 +109,7 @@ const Skills = () => {
                                         textAnchor="middle"
                                         fontSize="26"
                                         fontWeight="700"
-                                        fill="white"
+                                        fill={isDarkMode ? "white" : "black"}
                                     >
                                         {level}%
                                     </text>
@@ -98,14 +118,17 @@ const Skills = () => {
                                         y="83"
                                         textAnchor="middle"
                                         fontSize="14"
-                                        fill="#94a3b8"
+                                        fill={isDarkMode ? "#9ca3af" : "#4b5563"} // gray-400 / gray-600
                                         fontWeight="600"
                                     >
                                         {name}
                                     </text>
                                 </svg>
 
-                                <p className="mt-4 text-sm text-gray-400 group-hover:text-white transition-colors duration-300">
+                                <p
+                                    className={`mt-4 text-sm transition-colors duration-300 ${isDarkMode ? "text-gray-400 group-hover:text-white" : "text-gray-600 group-hover:text-gray-900"
+                                        }`}
+                                >
                                     {`Proficiency in ${name}`}
                                 </p>
                             </motion.div>
@@ -114,13 +137,18 @@ const Skills = () => {
                 </div>
 
                 <motion.div
-                    className="bg-gradient-to-r from-blue-700/20 to-purple-700/20 border border-blue-700/40 rounded-xl p-8 max-w-5xl mx-auto"
+                    className={`rounded-xl p-8 max-w-5xl mx-auto transition-colors duration-500 ${isDarkMode
+                        ? "bg-gradient-to-r from-blue-700/20 to-purple-700/20 border border-blue-700/40"
+                        : "bg-gradient-to-r from-blue-200/30 to-purple-200/30 border border-blue-200"
+                        }`}
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.8 }}
                 >
-                    <h3 className="text-3xl font-bold text-white mb-6">Currently Learning</h3>
+                    <h3 className={`text-3xl font-bold mb-6 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+                        Currently Learning
+                    </h3>
                     <motion.div
                         className="flex flex-wrap justify-center gap-4"
                         initial="hidden"
@@ -140,7 +168,10 @@ const Skills = () => {
                         {currentlyLearning.map((tech, i) => (
                             <motion.span
                                 key={tech}
-                                className="px-5 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full text-base font-semibold cursor-default select-none shadow-lg"
+                                className={`px-5 py-2 rounded-full text-base font-semibold cursor-default select-none shadow-lg transition-colors duration-300 ${isDarkMode
+                                    ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white"
+                                    : "bg-gradient-to-r from-blue-400 to-purple-400 text-gray-900"
+                                    }`}
                                 variants={{
                                     hidden: { opacity: 0, scale: 0.8 },
                                     visible: {

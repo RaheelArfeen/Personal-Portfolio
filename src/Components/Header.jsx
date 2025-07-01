@@ -1,11 +1,14 @@
 import { useEffect, useState, useRef } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Moon, Sun } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Logo from "./Shared/Logo";
+import { useTheme } from "../Context/ThemeContext";
 
 const Header = () => {
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [activeSection, setActiveSection] = useState("home");
+    const { isDarkMode, toggleDarkMode } = useTheme();
+
     const navLinks = [
         { label: "Home", to: "home" },
         { label: "About", to: "about" },
@@ -16,7 +19,6 @@ const Header = () => {
     ];
 
     const navRefs = useRef([]);
-
     const [underlineStyle, setUnderlineStyle] = useState({ left: 0, width: 0 });
 
     useEffect(() => {
@@ -69,7 +71,10 @@ const Header = () => {
     return (
         <>
             <motion.nav
-                className="sticky top-0 z-40 bg-gray-900/80 backdrop-blur-md border-b border-gray-800"
+                className={`sticky top-0 z-40 backdrop-blur-md border-b transition-colors duration-300 ${isDarkMode
+                    ? 'bg-gray-900/80 border-gray-800'
+                    : 'bg-white/80 border-gray-200'
+                    }`}
                 initial={{ y: -100 }}
                 animate={{ y: 0 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
@@ -91,7 +96,10 @@ const Header = () => {
                                     key={link.label}
                                     ref={(el) => (navRefs.current[idx] = el)}
                                     onClick={() => handleScrollTo(link.to)}
-                                    className="text-gray-400 hover:text-blue-400 text-sm font-medium pb-1 cursor-pointer bg-transparent border-none"
+                                    className={`text-sm font-medium pb-1 cursor-pointer bg-transparent border-none transition-colors duration-300 ${isDarkMode
+                                        ? 'text-gray-400 hover:text-blue-400'
+                                        : 'text-gray-600 hover:text-blue-600'
+                                        }`}
                                     style={{ outline: "none" }}
                                 >
                                     {link.label}
@@ -102,16 +110,57 @@ const Header = () => {
                             <motion.div
                                 layout
                                 transition={{ type: "spring", stiffness: 800, damping: 30 }}
-                                className="absolute bottom-0 h-0.5 bg-blue-400 rounded"
+                                className={`absolute bottom-0 h-0.5 rounded ${isDarkMode ? 'bg-blue-400' : 'bg-blue-600'
+                                    }`}
                                 style={{
                                     left: underlineStyle.left,
                                     width: underlineStyle.width,
                                 }}
                             />
+
+                            {/* Dark Mode Toggle */}
+                            <motion.button
+                                onClick={toggleDarkMode}
+                                className={`p-2 rounded-full transition-all duration-300 cursor-pointer ${isDarkMode
+                                    ? 'text-yellow-400 hover:bg-gray-800 hover:text-yellow-300'
+                                    : 'text-gray-600 hover:bg-gray-100 hover:text-gray-800'
+                                    }`}
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.9 }}
+                                aria-label="Toggle dark mode"
+                            >
+                                <AnimatePresence mode="wait">
+                                    {isDarkMode ? (
+                                        <motion.div
+                                            key="sun"
+                                            initial={{ rotate: -90, opacity: 0 }}
+                                            animate={{ rotate: 0, opacity: 1 }}
+                                            exit={{ rotate: 90, opacity: 0 }}
+                                            transition={{ duration: 0.2 }}
+                                        >
+                                            <Sun size={20} />
+                                        </motion.div>
+                                    ) : (
+                                        <motion.div
+                                            key="moon"
+                                            initial={{ rotate: 90, opacity: 0 }}
+                                            animate={{ rotate: 0, opacity: 1 }}
+                                            exit={{ rotate: -90, opacity: 0 }}
+                                            transition={{ duration: 0.2 }}
+                                        >
+                                            <Moon size={20} />
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </motion.button>
+
                             <motion.a
                                 href="/resume.pdf"
                                 download
-                                className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-medium border border-blue-500 text-blue-400 hover:bg-blue-500/20 transition-colors duration-300 ml-6"
+                                className={`inline-flex items-center px-4 py-1.5 rounded-full text-sm font-medium border transition-colors duration-300 ${isDarkMode
+                                    ? 'border-blue-500 text-blue-400 hover:bg-blue-500/20'
+                                    : 'border-blue-600 text-blue-600 hover:bg-blue-600/10'
+                                    }`}
                                 initial={{ opacity: 0, scale: 0.8 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ duration: 0.5 }}
@@ -123,12 +172,53 @@ const Header = () => {
                         </div>
 
                         {/* Mobile Menu Button */}
-                        <button
-                            className="sm:hidden p-2 rounded-md text-gray-400 hover:text-blue-400 hover:bg-gray-800 transition-colors duration-300"
-                            onClick={() => setDrawerOpen(true)}
-                        >
-                            <Menu size={24} />
-                        </button>
+                        <div className="flex items-center space-x-3 sm:hidden">
+                            {/* Mobile Dark Mode Toggle */}
+                            <motion.button
+                                onClick={toggleDarkMode}
+                                className={`p-2 rounded-md transition-colors duration-300 cursor-pointer ${isDarkMode
+                                    ? 'text-yellow-400 hover:text-yellow-300 hover:bg-gray-800'
+                                    : 'text-gray-600 hover:text-gray-800 hover:bg-gray-100'
+                                    }`}
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.9 }}
+                                aria-label="Toggle dark mode"
+                            >
+                                <AnimatePresence mode="wait">
+                                    {isDarkMode ? (
+                                        <motion.div
+                                            key="sun"
+                                            initial={{ rotate: -90, opacity: 0 }}
+                                            animate={{ rotate: 0, opacity: 1 }}
+                                            exit={{ rotate: 90, opacity: 0 }}
+                                            transition={{ duration: 0.2 }}
+                                        >
+                                            <Sun size={20} />
+                                        </motion.div>
+                                    ) : (
+                                        <motion.div
+                                            key="moon"
+                                            initial={{ rotate: 90, opacity: 0 }}
+                                            animate={{ rotate: 0, opacity: 1 }}
+                                            exit={{ rotate: -90, opacity: 0 }}
+                                            transition={{ duration: 0.2 }}
+                                        >
+                                            <Moon size={20} />
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </motion.button>
+
+                            <button
+                                className={`p-2 rounded-md transition-colors duration-300 ${isDarkMode
+                                    ? 'text-gray-400 hover:text-blue-400 hover:bg-gray-800'
+                                    : 'text-gray-600 hover:text-blue-600 hover:bg-gray-100'
+                                    }`}
+                                onClick={() => setDrawerOpen(true)}
+                            >
+                                <Menu size={24} />
+                            </button>
+                        </div>
                     </div>
                 </div>
             </motion.nav>
@@ -150,7 +240,8 @@ const Header = () => {
                         {/* Drawer */}
                         <motion.aside
                             key="drawer"
-                            className="fixed top-0 right-0 h-full w-64 bg-gray-900 shadow-lg z-50 p-6 flex flex-col"
+                            className={`fixed top-0 right-0 h-full w-64 shadow-lg z-50 p-6 flex flex-col transition-colors duration-300 ${isDarkMode ? 'bg-gray-900' : 'bg-white'
+                                }`}
                             initial={{ x: "100%" }}
                             animate={{ x: 0 }}
                             exit={{ x: "100%" }}
@@ -158,7 +249,10 @@ const Header = () => {
                         >
                             <button
                                 onClick={() => setDrawerOpen(false)}
-                                className="self-end p-2 rounded-md text-gray-400 hover:text-blue-400 hover:bg-gray-800 transition-colors duration-300"
+                                className={`self-end p-2 rounded-md transition-colors duration-300 ${isDarkMode
+                                    ? 'text-gray-400 hover:text-blue-400 hover:bg-gray-800'
+                                    : 'text-gray-600 hover:text-blue-600 hover:bg-gray-100'
+                                    }`}
                             >
                                 <X size={24} />
                             </button>
@@ -169,8 +263,12 @@ const Header = () => {
                                         key={link.label}
                                         onClick={() => handleScrollTo(link.to)}
                                         className={`text-left text-lg font-medium pb-1 transition-colors duration-300 cursor-pointer ${activeSection === link.to
-                                            ? "text-blue-400 border-b border-blue-400"
-                                            : "text-gray-400 hover:text-blue-400"
+                                            ? isDarkMode
+                                                ? "text-blue-400 border-b border-blue-400"
+                                                : "text-blue-600 border-b border-blue-600"
+                                            : isDarkMode
+                                                ? "text-gray-400 hover:text-blue-400"
+                                                : "text-gray-600 hover:text-blue-600"
                                             }`}
                                     >
                                         {link.label}
@@ -180,7 +278,10 @@ const Header = () => {
                                 <a
                                     href="/resume.pdf"
                                     download
-                                    className="mt-6 inline-flex justify-center px-4 py-2 rounded-full text-sm font-medium border border-blue-500 text-blue-400 hover:bg-blue-500/20 transition-colors duration-300"
+                                    className={`mt-6 inline-flex justify-center px-4 py-2 rounded-full text-sm font-medium border transition-colors duration-300 ${isDarkMode
+                                        ? 'border-blue-500 text-blue-400 hover:bg-blue-500/20'
+                                        : 'border-blue-600 text-blue-600 hover:bg-blue-600/10'
+                                        }`}
                                     onClick={() => setDrawerOpen(false)}
                                 >
                                     Download Resume

@@ -1,7 +1,10 @@
 import { Code, BookOpen, Target, Zap } from "lucide-react";
 import { motion } from "framer-motion";
+import { useTheme } from "../Context/ThemeContext";
 
 const About = () => {
+    const { isDarkMode } = useTheme();
+
     const features = [
         {
             icon: Code,
@@ -47,7 +50,11 @@ const About = () => {
     };
 
     return (
-        <section id="about" className="py-20 bg-gray-800/50">
+        <section
+            id="about"
+            className={`py-20 transition-colors duration-500 ${isDarkMode ? "bg-gray-800/50" : ""
+                }`}
+        >
             <div className="container mx-auto px-4">
                 <motion.div
                     className="text-center mb-16"
@@ -76,12 +83,18 @@ const About = () => {
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, delay: 0.3 }}
                     >
-                        <p className="text-lg md:text-xl text-gray-300 leading-relaxed mb-6">
+                        <p
+                            className={`text-lg md:text-xl leading-relaxed mb-6 ${isDarkMode ? "text-gray-300" : "text-gray-700"
+                                }`}
+                        >
                             Hi! I'm Raheel, a passionate 8th-grade student who discovered the amazing world of
                             web development. What started as curiosity about how websites work has grown into
                             a genuine love for coding and creating digital experiences.
                         </p>
-                        <p className="text-lg text-gray-400 leading-relaxed">
+                        <p
+                            className={`text-lg leading-relaxed ${isDarkMode ? "text-gray-400" : "text-gray-600"
+                                }`}
+                        >
                             I'm currently diving deep into both frontend and backend technologies,
                             building projects that challenge me and help me grow as a developer.
                             My goal is to become a skilled full-stack developer and contribute to
@@ -99,7 +112,10 @@ const About = () => {
                         {features.map((feature, index) => (
                             <motion.div
                                 key={index}
-                                className="bg-gray-900/50 p-6 rounded-xl border border-gray-700 hover:border-blue-500/50 transition-all duration-300 group"
+                                className={`p-6 rounded-xl border transition-all duration-300 group ${isDarkMode
+                                        ? "bg-gray-900/50 border-gray-700 hover:border-blue-500/50"
+                                        : "bg-white border-gray-200 hover:border-blue-400/50 shadow-sm"
+                                    }`}
                                 variants={itemVariants}
                                 whileHover={{
                                     scale: 1.05,
@@ -121,12 +137,16 @@ const About = () => {
                                     </motion.div>
                                     <div>
                                         <motion.h3
-                                            className="text-xl font-semibold text-white mb-2 group-hover:text-blue-400 transition-colors duration-300"
+                                            className={`text-xl font-semibold mb-2 group-hover:text-blue-400 transition-colors duration-300 ${isDarkMode ? "text-white" : "text-gray-800"
+                                                }`}
                                             whileHover={{ x: 5 }}
                                         >
                                             {feature.title}
                                         </motion.h3>
-                                        <p className="text-gray-400 leading-relaxed">
+                                        <p
+                                            className={`leading-relaxed ${isDarkMode ? "text-gray-400" : "text-gray-600"
+                                                }`}
+                                        >
                                             {feature.description}
                                         </p>
                                     </div>
