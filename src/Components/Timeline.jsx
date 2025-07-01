@@ -92,9 +92,9 @@ const Timeline = () => {
                     <div className="relative">
                         {/* Timeline line */}
                         <motion.div
-                            className="absolute left-4 md:left-1/2 transform md:-translate-x-1/2 top-1/2 -translate-y-1/2 bottom-0 w-0.5 bg-gradient-to-b from-blue-500 to-purple-500"
+                            className="absolute left-4 md:left-1/2 transform md:-translate-x-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500 to-purple-500"
                             initial={{ height: 0 }}
-                            whileInView={{ height: "82%" }}
+                            whileInView={{ height: "100%" }}
                             viewport={{ once: true }}
                             transition={{ duration: 2, ease: "easeInOut" }}
                         />
@@ -132,8 +132,8 @@ const Timeline = () => {
                                     <div className={`ml-16 md:ml-0 md:w-1/2 ${index % 2 === 0 ? 'md:pr-12' : 'md:pl-12'}`}>
                                         <motion.div
                                             className={`p-6 rounded-xl border transition-all duration-300 group ${isDarkMode
-                                                    ? "bg-gray-800/50 border-gray-700 hover:border-blue-500/50"
-                                                    : "bg-white border-gray-300 hover:border-blue-400/30"
+                                                ? "bg-gray-800/50 border-gray-700 hover:border-blue-500/50"
+                                                : "bg-white border-gray-300 hover:border-blue-400/30"
                                                 }`}
                                             whileHover={{
                                                 scale: 1.02,
