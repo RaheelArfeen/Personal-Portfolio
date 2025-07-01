@@ -92,9 +92,9 @@ const Timeline = () => {
                     <div className="relative">
                         {/* Timeline line */}
                         <motion.div
-                            className="absolute left-4 md:left-1/2 transform md:-translate-x-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500 to-purple-500"
+                            className="absolute left-4 md:left-1/2 transform md:-translate-x-1/2 top-1/2 -translate-y-1/2 bottom-0 w-0.5 bg-gradient-to-b from-blue-500 to-purple-500"
                             initial={{ height: 0 }}
-                            whileInView={{ height: "100%" }}
+                            whileInView={{ height: "85%" }}
                             viewport={{ once: true }}
                             transition={{ duration: 2, ease: "easeInOut" }}
                         />
