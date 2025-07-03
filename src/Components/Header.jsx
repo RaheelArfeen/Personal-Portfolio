@@ -23,12 +23,17 @@ const Header = () => {
 
     const handleScrollTo = (hash) => {
         setDrawerOpen(false);
+        if (hash === "#home") {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            return;
+        }
         const id = hash.replace("#", "");
         const el = document.getElementById(id);
         if (el) {
             el.scrollIntoView({ behavior: "smooth" });
         }
     };
+
 
     // Handle active section on scroll
     useEffect(() => {
@@ -93,12 +98,14 @@ const Header = () => {
             >
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center h-16">
-                        <div
-                            className="flex items-center space-x-3 cursor-pointer"
-                            onClick={() => handleScrollTo("#home")}
-                        >
-                            <Logo />
-                        </div>
+                        <a href="#">
+                            <div
+                                className="flex items-center space-x-3 cursor-pointer"
+                                onClick={() => handleScrollTo("#home")}
+                            >
+                                <Logo />
+                            </div>
+                        </a>
 
                         {/* Desktop Nav */}
                         <div className="relative hidden sm:flex items-center space-x-6">
