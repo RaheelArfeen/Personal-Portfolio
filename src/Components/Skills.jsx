@@ -52,7 +52,7 @@ const Skills = () => {
                     />
                 </motion.div>
 
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4  gap-x-5 gap-y-5 max-w-5xl mx-auto mb-16">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 max-w-5xl mx-auto mb-12">
                     {skills.map(({ name, level, colorFrom, colorTo }, i) => {
                         const strokeDashoffset = CIRCUMFERENCE * (1 - level / 100);
                         return (
