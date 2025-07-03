@@ -139,7 +139,7 @@ const Hero = () => {
                                         <img
                                             src={RaheelArfeen}
                                             alt="Raheel - Profile"
-                                            className="w-full h-full rounded-full object-cover border-4 border-gray-800 shadow-2xl"
+                                            className={`w-full h-full rounded-full object-cover border-4 shadow-2xl ${isDarkMode ? 'border-gray-800' : 'border-gray-400/30'}`}
                                         />
                                         <div className={`absolute inset-0 rounded-full ${isDarkMode ? "bg-white/5" : "bg-black/5"
                                             }`}></div>

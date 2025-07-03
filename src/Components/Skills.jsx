@@ -52,7 +52,7 @@ const Skills = () => {
                     />
                 </motion.div>
 
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-12 max-w-5xl mx-auto mb-16">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4  gap-x-5 gap-y-5 max-w-5xl mx-auto mb-16">
                     {skills.map(({ name, level, colorFrom, colorTo }, i) => {
                         const strokeDashoffset = CIRCUMFERENCE * (1 - level / 100);
                         return (
@@ -69,20 +69,18 @@ const Skills = () => {
                                 whileHover={{ scale: 1.1 }}
                             >
                                 <svg
-                                    className="w-36 h-36 mx-auto"
+                                    className="w-28 h-28 mx-auto"
                                     viewBox="0 0 120 120"
                                     fill="none"
                                     xmlns="http://www.w3.org/2000/svg"
                                 >
-                                    {/* Background circle */}
                                     <circle
                                         cx="60"
                                         cy="60"
                                         r={RADIUS}
-                                        stroke={isDarkMode ? "#374151" : "#d1d5db"} // dark gray / light gray
+                                        stroke={isDarkMode ? "#374151" : "#d1d5db"}
                                         strokeWidth="12"
                                     />
-                                    {/* Progress circle */}
                                     <motion.circle
                                         cx="60"
                                         cy="60"
@@ -118,7 +116,7 @@ const Skills = () => {
                                         y="83"
                                         textAnchor="middle"
                                         fontSize="14"
-                                        fill={isDarkMode ? "#9ca3af" : "#4b5563"} // gray-400 / gray-600
+                                        fill={isDarkMode ? "#9ca3af" : "#4b5563"}
                                         fontWeight="600"
                                     >
                                         {name}
@@ -170,7 +168,7 @@ const Skills = () => {
                                 key={tech}
                                 className={`px-5 py-2 rounded-full text-base font-semibold cursor-default select-none shadow-lg transition-colors duration-300 ${isDarkMode
                                     ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white"
-                                    : "bg-gradient-to-r from-blue-400 to-purple-400 text-gray-900"
+                                    : "bg-gradient-to-r from-blue-400 to-purple-400 text-white"
                                     }`}
                                 variants={{
                                     hidden: { opacity: 0, scale: 0.8 },
