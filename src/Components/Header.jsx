@@ -168,7 +168,7 @@ const Header = () => {
                             </motion.button>
 
                             <motion.a
-                                href="/resume.pdf"
+                                href="/RaheelArfeen.pdf"
                                 download
                                 className={`inline-flex items-center px-4 py-1.5 rounded-full text-sm font-medium border transition-colors duration-300 ${isDarkMode ? "border-blue-500 text-blue-400 hover:bg-blue-500/20" : "border-blue-600 text-blue-600 hover:bg-blue-600/10"}`}
                                 initial={{ opacity: 0, scale: 0.8 }}
@@ -267,7 +267,7 @@ const Header = () => {
                                 ))}
 
                                 <a
-                                    href="/resume.pdf"
+                                    href="/RaheelArfeen.pdf"
                                     download
                                     className={`mt-6 inline-flex justify-center px-4 py-2 rounded-full text-sm font-medium border transition-colors duration-300 ${isDarkMode ? "border-blue-500 text-blue-400 hover:bg-blue-500/20" : "border-blue-600 text-blue-600 hover:bg-blue-600/10"}`}
                                     onClick={() => setDrawerOpen(false)}
